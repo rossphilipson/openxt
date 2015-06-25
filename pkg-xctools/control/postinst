@@ -38,25 +38,14 @@ do_dkms_stage()
     dkms $stage -m $pkg -v $ver $kernel $rpm_safe
 }
 
-# Figure out what pv drivers are getting installed
-PVDS=()
-
+# Loop over all the pv driver packages and install them
 for PVD in "audio" "v4v"
 do
-    if [[ "$1" =~ "--exclude" ]]; then
-        echo "$1 contains --exclude";
-        if [[ ! "$1" =~ "$PVD" ]]; then
-            echo "$1 no haz $PVD";
-            PVDS+=("$PVD")
-        fi
-    else
-        PVDS+=("$PVD")
+    # Figure out what pv drivers are getting installed
+    if [[ "$1" =~ "--exclude" ]] && [[ "$1" =~ "$PVD" ]]; then
+        continue
     fi
-done
 
-# Loop over all the pv driver packages and install them
-for PVD in "${PVDS[@]}"
-do
     NAME=openxt-pv-${PVD}
     PACKAGE=${NAME}-dkms
     VERSION=1.0
