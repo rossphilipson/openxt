@@ -3,3 +3,6 @@ to this directory and execute:
 
  $ sudo ./install.sh
 
+The various PV drivers can be excluded from the install using the following:
+
+ $ sudo ./install.sh --exclude=[v4v],[audio]
