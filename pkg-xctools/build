@@ -12,7 +12,7 @@ make_bundle_pv_drivers()
     pushd $PSRC_DIR
         install -m 0644 -D dkms/lintian ${PLIN_DIR}
         install -m 0755 -d ${PDOC_DIR}
-        cp ${2}/COPYING ${PDOC_DIR}/copyright
+        cp ../COPYING ${PDOC_DIR}/copyright
         rm -rf dkms
         mkdir -p $PDST_DIR
         cp -a . $PDST_DIR
