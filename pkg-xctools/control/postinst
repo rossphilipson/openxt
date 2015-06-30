@@ -42,7 +42,7 @@ do_dkms_stage()
 for PVD in "audio" "v4v"
 do
     # Figure out what pv drivers are getting installed
-    if [[ "$1" =~ "--exclude" ]] && [[ "$1" =~ "$PVD" ]]; then
+    if [[ "x$XC_TOOLS_EXCLUDE" != "x" ]] && [[ "$XC_TOOLS_EXCLUDE" =~ "$PVD" ]]; then
         continue
     fi
 
