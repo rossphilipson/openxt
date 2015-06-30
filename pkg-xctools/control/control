@@ -1,6 +1,6 @@
 Package: xc-tools
 Version: 1-2
-Maintainer: OpenXT Community
+Maintainer: OpenXT Community <openxt@googlegroups.com>
 Section: OpenXT
 License: GPLv2
 Installed-Size: @SIZE@
