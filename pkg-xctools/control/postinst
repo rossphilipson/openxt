@@ -3,6 +3,7 @@
 set -e
 
 XENCLIENT_TOOLS="@XENCLIENT_TOOLS@"
+HAS_V4V=""
 
 if [ -r /etc/redhat-release ] ; then
     DISTRO=rhel
@@ -85,6 +86,7 @@ do
             echo "${PACKAGE}-${VERSION} headers installed."
 
             modprobe xc-v4v
+            HAS_V4V="yes"
         fi
     popd
 done
@@ -137,25 +139,25 @@ popd
 #
 # Deals with libv4v
 #
-NAME=libv4v
-PACKAGE=${NAME}
-VERSION=1.0
-SRCS=/usr/src/${PACKAGE}-${VERSION}
-pushd ${SRCS}
-    echo "${PACKAGE}-${VERSION} building ..."
-    ./autogen.sh
-    ./configure --prefix=/usr --libdir=${LIBDIR}
+if [ -n "$HAS_V4V" ]; then
+    NAME=libv4v
+    PACKAGE=${NAME}
+    VERSION=1.0
+    SRCS=/usr/src/${PACKAGE}-${VERSION}
+    pushd ${SRCS}
+        echo "${PACKAGE}-${VERSION} building ..."
+        ./autogen.sh
+        ./configure --prefix=/usr --libdir=${LIBDIR}
 
-    make install
+        make install
 
-    if [ "${DISTRO}" = rhel ] ; then
-        /sbin/ldconfig
-    fi
+        if [ "${DISTRO}" = rhel ] ; then
+            /sbin/ldconfig
+        fi
 
-    echo "${PACKAGE}-${VERSION} installed."
-popd
-
-
+        echo "${PACKAGE}-${VERSION} installed."
+    popd
+fi
 
 #
 # Deals with xblanker
@@ -165,11 +167,11 @@ PACKAGE=${NAME}
 VERSION=1.0
 SRCS=/usr/src/${PACKAGE}-${VERSION}
 pushd ${SRCS}
-    echo "libxenstore building ..."
+    echo "xblanker building ..."
     ./autogen.sh
     ./configure
     make install
-    echo "libxenstore installed."
+    echo "xblanker installed."
     if [ "${DISTRO}" = rhel ] ; then
         # FIXME: Check priority on RHEL/CentOS. Needs to be after
         # xenstore-agent?
