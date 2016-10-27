@@ -1,6 +1,6 @@
 # 1) Basic config
 DISTRO = "openxt-main"
-DISTRO_FEATURES = "alsa ext2 largefile usbhost wifi xattr pci x11 ipv4 ipv6 ${DISTRO_FEATURES_LIBC} multiarch pam"
+DISTRO_FEATURES = "alsa ext2 largefile usbhost wifi xattr pci x11 ipv4 ipv6 ${DISTRO_FEATURES_LIBC} multiarch pam bats bats-testsuite"
 BB_NUMBER_THREADS ?= "4"
 PARALLEL_MAKE ?= "-j 4"
 PACKAGE_CLASSES ?= "package_ipk"
